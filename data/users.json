@@ -1,16 +1,16 @@
 [
   {
-    "id": "ca3b7c79-29cb-491e-a91c-511f9c06458f",
-    "email": "admin@ejemplo.com",
-    "passwordHash": "$2b$10$yteXdenlRxvim1CGlIEO9emagImmzjF/k1czywU0GVwNDC66i1Lau",
+    "id": "3feac05d-94fa-4ed3-932f-71c44b18c305",
+    "email": "jruben2222@gmail.com",
+    "passwordHash": "$2b$10$omWr.EfsmLqP6h7Yr7tCzOktavIwhA7N/MM3UxZQyd7hYEtBZvvIq",
     "role": "admin",
-    "createdAt": "2025-10-06T01:37:54.202Z"
+    "createdAt": "2025-10-06T13:02:28.186Z"
   },
   {
-    "id": "736d1460-cf1b-415c-85a8-46af562460f1",
-    "email": "ddone@ipl.edu.do",
-    "passwordHash": "$2b$10$dXSjTik6OxMcaNgBJa/go.KCHUecpq4TtZbMRz/nDu1PqBLta.qiu",
+    "id": "c9da0051-0602-4086-b995-1a66db079232",
+    "email": "ALADAMES@IPL.EDU.DO",
+    "passwordHash": "$2b$10$zCwJ6OVtmTCvzsGGS.fBlOMSFOeQUxJ3ZFPiScP9TXpCeOXVKGTKm",
     "role": "uploader",
-    "createdAt": "2025-10-06T01:49:18.217Z"
+    "createdAt": "2025-10-06T13:03:38.663Z"
   }
 ]

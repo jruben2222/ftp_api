@@ -10,6 +10,7 @@ const fs = require('fs').promises;
 const fssync = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const { Console } = require('console');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -148,8 +149,8 @@ app.get('/admin', authMiddleware, async (req, res) => {
 
 // Seed route para crear admin (solo para desarrollo). Elimina o protege en producción.
 app.get('/seed-admin', async (req, res) => {
-  const adminEmail = process.env.ADMIN_EMAIL || 'jruben2222@gmail.com.com';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'Alistonca*1';
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@ejemplo.com';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'Admin12345';
   const users = await readJSON(USERS_JSON);
   if (users.find(u => u.email === adminEmail)) {
     return res.send('Admin ya existe');
@@ -201,7 +202,8 @@ app.post('/admin/file/:id/edit', authMiddleware, async (req, res) => {
 });
 
 // Delete archivo (elimina metadata + archivo físico)
-app.post('/admin/file/:id/delete', authMiddleware, async (req, res) => {
+app.get('/admin/file/:id/delete', authMiddleware, async (req, res) => {
+  console.log('delete file req.body:', req.body);
   if (!['admin', 'uploader'].includes(req.user.role)) return res.status(403).send('Acceso denegado');
   const id = req.params.id;
   let files = await readJSON(FILES_JSON);
@@ -223,6 +225,10 @@ app.post('/admin/file/:id/delete', authMiddleware, async (req, res) => {
   await writeJSON(FILES_JSON, files);
   res.redirect('/admin');
 });
+
+
+
+
 
 // Descargar archivo (público) por id
 app.get('/files/download/:id', async (req, res) => {
