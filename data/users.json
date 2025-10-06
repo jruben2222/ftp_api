@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ca3b7c79-29cb-491e-a91c-511f9c06458f",
+    "email": "admin@ejemplo.com",
+    "passwordHash": "$2b$10$yteXdenlRxvim1CGlIEO9emagImmzjF/k1czywU0GVwNDC66i1Lau",
+    "role": "admin",
+    "createdAt": "2025-10-06T01:37:54.202Z"
+  },
+  {
+    "id": "736d1460-cf1b-415c-85a8-46af562460f1",
+    "email": "ddone@ipl.edu.do",
+    "passwordHash": "$2b$10$dXSjTik6OxMcaNgBJa/go.KCHUecpq4TtZbMRz/nDu1PqBLta.qiu",
+    "role": "uploader",
+    "createdAt": "2025-10-06T01:49:18.217Z"
+  }
+]

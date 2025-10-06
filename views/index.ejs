@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSPL - Archivos Públicos</title>
+  <style>
+    :root {
+      --color-azul-ipl: #0082CB;
+      --color-azul-oscuro-ipl: #1165A2;
+      --color-amarillo-ipl: #FDEE0E;
+      --color-rojo-ipl: #cc3333;
+      --color-gris-claro-ipl: #EAF1F8;
+      --color-blanco: #ffffff;
+      --color-texto: #333333;
+      --color-texto-claro: #666666;
+      --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --sombra-media: 0 6px 12px rgba(0, 0, 0, 0.15);
+      --transicion: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--color-texto);
+      background-color: var(--color-gris-claro-ipl);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--color-azul-oscuro-ipl) 0%, var(--color-azul-ipl) 100%);
+      color: var(--color-blanco);
+      padding: 1.5rem 2rem;
+      box-shadow: var(--sombra-suave);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .logo-placeholder {
+      width: 60px;
+      height: 60px;
+      background-color: var(--color-amarillo-ipl);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--color-azul-oscuro-ipl);
+      box-shadow: var(--sombra-suave);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .admin-btn {
+      background-color: var(--color-amarillo-ipl);
+      color: var(--color-azul-oscuro-ipl);
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transicion);
+      box-shadow: var(--sombra-suave);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .admin-btn:hover {
+      background-color: var(--color-blanco);
+      transform: translateY(-2px);
+      box-shadow: var(--sombra-media);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .no-files {
+      text-align: center;
+      padding: 3rem;
+      background-color: var(--color-blanco);
+      border-radius: 12px;
+      box-shadow: var(--sombra-suave);
+      color: var(--color-texto-claro);
+    }
+
+    .no-files p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .files-container {
+      background-color: var(--color-blanco);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--sombra-media);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: linear-gradient(to right, var(--color-azul-ipl), var(--color-azul-oscuro-ipl));
+      color: var(--color-blanco);
+    }
+
+    th {
+      padding: 1.2rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--color-gris-claro-ipl);
+      transition: var(--transicion);
+    }
+
+    tbody tr:hover {
+      background-color: var(--color-gris-claro-ipl);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    td {
+      padding: 1.2rem 1rem;
+      color: var(--color-texto);
+    }
+
+    .file-name {
+      font-weight: 500;
+      color: var(--color-azul-oscuro-ipl);
+    }
+
+    .file-size {
+      color: var(--color-texto-claro);
+    }
+
+    .uploader {
+      color: var(--color-texto-claro);
+      font-style: italic;
+    }
+
+    .download-btn {
+      background-color: var(--color-azul-ipl);
+      color: var(--color-blanco);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transicion);
+      display: inline-block;
+      text-align: center;
+      min-width: 110px;
+    }
+
+    .download-btn:hover {
+      background-color: var(--color-azul-oscuro-ipl);
+      transform: translateY(-2px);
+      box-shadow: var(--sombra-suave);
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-title {
+      font-size: 1.5rem;
+      color: var(--color-azul-oscuro-ipl);
+      font-weight: 600;
+    }
+
+    .file-count {
+      background-color: var(--color-azul-ipl);
+      color: var(--color-blanco);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    footer {
+      background-color: var(--color-azul-oscuro-ipl);
+      color: var(--color-blanco);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      main {
+        padding: 1rem;
+      }
+      
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      th, td {
+        padding: 0.8rem 0.5rem;
+      }
+      
+      .download-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.4rem;
+      }
+      
+      .table-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo-placeholder">
+        <img src="./public/logoIPLsolo.png" alt="Logo Loyola" style="width:100px; height:auto;">
+      </div>
+      <h1>OSPL - Archivos Públicos</h1>
+    </div>
+    <a href="/login" class="admin-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+      </svg>
+      Panel Admin
+    </a>
+  </header>
+
+  <main>
+    <div class="table-header">
+      <h2 class="table-title">Archivos Disponibles</h2>
+      <% if (files.length > 0) { %>
+        <div class="file-count"><%= files.length %> archivo(s)</div>
+      <% } %>
+    </div>
+    
+    <% if (files.length === 0) { %>
+      <div class="no-files">
+        <p>No hay archivos públicos disponibles.</p>
+        <p>Vuelve más tarde o contacta al administrador.</p>
+      </div>
+    <% } else { %>
+      <div class="files-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tamaño</th>
+              <th>Subido por</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% files.forEach(function(file){ %>
+              <tr>
+                <td class="file-name"><%= file.originalName %></td>
+                <td class="file-size"><%= Math.round(file.size/1024) %> KB</td>
+                <td class="uploader"><%= file.uploader %></td>
+                <td><a href="/files/download/<%= file.id %>" class="download-btn">Descargar</a></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>OSPL - Sistema de Archivos Públicos</p>
+  </footer>
+</body>
+</html>
