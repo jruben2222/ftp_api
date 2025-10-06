@@ -1,20 +1,394 @@
 <!doctype html>
-<html>
+<html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Login</title>
-  <link rel="stylesheet" href="/public/main.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSPL - Iniciar Sesión</title>
+  <style>
+    :root {
+      --color-azul-ipl: #0082CB;
+      --color-azul-oscuro-ipl: #1165A2;
+      --color-amarillo-ipl: #FDEE0E;
+      --color-rojo-ipl: #cc3333;
+      --color-gris-claro-ipl: #EAF1F8;
+      --color-blanco: #ffffff;
+      --color-texto: #333333;
+      --color-texto-claro: #666666;
+      --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --sombra-media: 0 8px 25px rgba(0, 0, 0, 0.15);
+      --transicion: all 0.3s ease;
+      --radio-borde: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--color-texto);
+      background: linear-gradient(135deg, var(--color-azul-ipl) 0%, var(--color-azul-oscuro-ipl) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 450px;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-card {
+      background-color: var(--color-blanco);
+      border-radius: var(--radio-borde);
+      box-shadow: var(--sombra-media);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(to right, var(--color-azul-ipl), var(--color-amarillo-ipl));
+    }
+
+    .logo-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--color-azul-ipl), var(--color-azul-oscuro-ipl));
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-blanco);
+      font-weight: bold;
+      font-size: 1.5rem;
+      box-shadow: var(--sombra-suave);
+    }
+
+    .logo-section h1 {
+      color: var(--color-azul-oscuro-ipl);
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo-section p {
+      color: var(--color-texto-claro);
+      font-size: 1rem;
+    }
+
+    .error-message {
+      background-color: rgba(204, 51, 51, 0.1);
+      color: var(--color-rojo-ipl);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--color-rojo-ipl);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .error-message::before {
+      content: '⚠';
+      font-weight: bold;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: var(--color-azul-oscuro-ipl);
+      font-size: 0.95rem;
+    }
+
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-with-icon input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 2px solid var(--color-gris-claro-ipl);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transicion);
+      background-color: var(--color-gris-claro-ipl);
+    }
+
+    .input-with-icon input:focus {
+      outline: none;
+      border-color: var(--color-azul-ipl);
+      background-color: var(--color-blanco);
+      box-shadow: 0 0 0 3px rgba(0, 130, 203, 0.1);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-texto-claro);
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, var(--color-azul-ipl), var(--color-azul-oscuro-ipl));
+      color: var(--color-blanco);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transicion);
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--sombra-media);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-gris-claro-ipl);
+    }
+
+    .back-link a {
+      color: var(--color-azul-ipl);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transicion);
+    }
+
+    .back-link a:hover {
+      color: var(--color-azul-oscuro-ipl);
+      transform: translateX(-5px);
+    }
+
+    .demo-credentials {
+      background-color: var(--color-gris-claro-ipl);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      border-left: 4px solid var(--color-amarillo-ipl);
+    }
+
+    .demo-credentials h3 {
+      color: var(--color-azul-oscuro-ipl);
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .demo-credentials h3::before {
+      content: '💡';
+    }
+
+    .credential-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .credential-item:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .credential-label {
+      font-weight: 500;
+      color: var(--color-texto);
+    }
+
+    .credential-value {
+      color: var(--color-azul-oscuro-ipl);
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--color-blanco);
+      opacity: 0.8;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .logo-section h1 {
+        font-size: 1.5rem;
+      }
+      
+      .logo {
+        width: 70px;
+        height: 70px;
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Efectos de carga */
+    .loading {
+      display: none;
+    }
+
+    .form-loading .loading {
+      display: inline;
+    }
+
+    .form-loading .btn-text {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>Iniciar sesión</h1>
-    <% if (error) { %><p style="color: red;"><%= error %></p><% } %>
-    <form method="POST" action="/login">
-      <div><label>Email: <input name="email" type="email" required></label></div>
-      <div><label>Contraseña: <input name="password" type="password" required></label></div>
-      <div><button type="submit">Entrar</button></div>
-    </form>
-    <p><a href="/">Volver</a></p>
-  </main>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo-section">
+        <div class="logo">
+          <img src="./public/logoIPLsolo.png" alt="Logo Loyola" style="width:100px; height:auto;">
+        </div>
+        <h1>Iniciar Sesión</h1>
+        <p>Acceso al panel de administración</p>
+      </div>
+
+      <% if (error) { %>
+        <div class="error-message">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <form method="POST" action="/login" class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <div class="input-with-icon">
+            <span class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+              </svg>
+            </span>
+            <input type="email" id="email" name="email" placeholder="usuario@ejemplo.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="input-with-icon">
+            <span class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+              </svg>
+            </span>
+            <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn">
+          <span class="btn-text">Ingresar</span>
+          <span class="loading">Cargando...</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="demo-credentials">
+        <h3>Credenciales de demostración</h3>
+        <div class="credential-item">
+          <span class="credential-label">Usuario:</span>
+          <span class="credential-value">admin@ospl.com</span>
+        </div>
+        <div class="credential-item">
+          <span class="credential-label">Contraseña:</span>
+          <span class="credential-value">admin123</span>
+        </div>
+      </div>
+
+      <div class="back-link">
+        <a href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+          </svg>
+          Volver a la página principal
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <p>OSPL - Sistema de Archivos Públicos</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      const btn = this.querySelector('.login-btn');
+      btn.classList.add('form-loading');
+      btn.disabled = true;
+      
+      // Simular tiempo de carga (en producción esto sería real)
+      setTimeout(() => {
+        btn.classList.remove('form-loading');
+        btn.disabled = false;
+      }, 2000);
+    });
+  </script>
 </body>
 </html>
